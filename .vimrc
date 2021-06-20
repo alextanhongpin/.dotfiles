@@ -74,12 +74,14 @@ set splitright
 "" more blocky diff markers in signcolumn (e.g. GitGutter)
 "let g:github_colors_block_diffmark = 0
 "" in your .vimrc or init.vim
-"colorscheme github
+colorscheme github
 
 " if you use airline / lightline
 set background=light
 let g:airline_theme = 'github'
-let g:lightline = { 'colorscheme': 'github' }
+let g:lightline = {
+	\ 'colorscheme': 'github',
+	\ }
 
 "set background=dark
 "colorscheme monokai
