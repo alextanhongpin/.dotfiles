@@ -76,23 +76,24 @@ set splitright
 "" in your .vimrc or init.vim
 "colorscheme github
 
-"" if you use airline / lightline
-"let g:airline_theme = "github"
-""let g:lightline = { 'colorscheme': 'github' }
+" if you use airline / lightline
+set background=light
+let g:airline_theme = 'github'
+let g:lightline = { 'colorscheme': 'github' }
 
 "set background=dark
 "colorscheme monokai
 "let g:airline_theme='monokai'
 "let g:lightline = {
-  "\ 'colorscheme': 'monokai',
-  "\ }
+	"\ 'colorscheme': 'monokai',
+	"\ }
 
-set background=light
-colorscheme papercolor
-let g:airline_theme='papercolor'
-let g:lightline = {
-  \ 'colorscheme': 'papercolor',
-  \ }
+"set background=light
+"colorscheme papercolor
+"let g:airline_theme='papercolor'
+"let g:lightline = {
+  "\ 'colorscheme': 'papercolor',
+  "\ }
 "highlight Normal ctermbg=black
 "highlight nonText ctermbg=black
 
