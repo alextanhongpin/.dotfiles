@@ -255,3 +255,8 @@ if [ -f ~/.bash_profile ]; then
     . ~/.bash_profile;
 fi
 export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig
+
+. /usr/local/opt/asdf/asdf.sh
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

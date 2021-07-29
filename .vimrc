@@ -33,6 +33,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'dyng/ctrlsf.vim'
 Plug 'universal-ctags/ctags'
 Plug 'preservim/tagbar'
+Plug 'dracula/vim'
 
 call plug#end()
 
@@ -74,13 +75,19 @@ set splitright
 "" more blocky diff markers in signcolumn (e.g. GitGutter)
 "let g:github_colors_block_diffmark = 0
 "" in your .vimrc or init.vim
-colorscheme github
+colorscheme dracula
 
 " if you use airline / lightline
-set background=light
-let g:airline_theme = 'github'
+"set background=light
+"let g:airline_theme = 'github'
+"let g:lightline = {
+	"\ 'colorscheme': 'github',
+	"\ }
+
+set background=dark
+let g:airline_theme = 'dracula'
 let g:lightline = {
-	\ 'colorscheme': 'github',
+	\ 'colorscheme': 'dracula',
 	\ }
 
 "set background=dark
@@ -113,7 +120,7 @@ let g:ale_linters = {
 "\   'go': ['staticcheck'],
 \   'css': ['prettier'],
 \   'html': ['prettier'],
-\   'javascript': ['prettier'],
+\   'javascript': ['prettier', 'eslint'],
 \   'typescript': ['prettier'],
 \   'vue': ['prettier'],
 \   'typescriptreact': ['eslint', 'prettier'],
@@ -127,7 +134,7 @@ let g:ale_fixers = {
 	\'vue': ['prettier'],
 	\'html': ['prettier'],
 	\'css': ['prettier'],
-	\'javascript': ['prettier'],
+	\'javascript': ['prettier', 'eslint'],
 	\'typescript': ['prettier'],
 	\'typescriptreact': ['eslint', 'prettier'],
 	\'svelte': ['stylelint', 'eslint', 'prettier', 'prettier-standard'],
