@@ -260,3 +260,4 @@ export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig
 . /usr/local/opt/asdf/asdf.sh
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="/usr/local/opt/go@1.16/bin:$PATH"

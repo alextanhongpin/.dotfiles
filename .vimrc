@@ -196,6 +196,9 @@ nmap <leader>p :Files<CR>
 nmap <leader>m :CtrlSF -R ""<Left>
 nmap <leader>n :CtrlSFFocus<CR>
 
+" Run go generate for go filesx.
+autocmd FileType go nmap <leader>g :!go generate %:p<CR>
+
 " Find within file lines
 nmap <leader>f :BLines<CR>
 
