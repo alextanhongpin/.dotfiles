@@ -34,6 +34,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'universal-ctags/ctags'
 Plug 'preservim/tagbar'
 Plug 'dracula/vim'
+Plug 'github/copilot.vim'
 
 call plug#end()
 
@@ -138,6 +139,7 @@ let g:ale_fixers = {
 	\'typescript': ['prettier'],
 	\'typescriptreact': ['eslint', 'prettier'],
 	\'svelte': ['stylelint', 'eslint', 'prettier', 'prettier-standard'],
+	\'dart': ['dartfmt', 'dart-format'],
 	"\   'python': ['black'],
 	\'*': ['remove_trailing_lines', 'trim_whitespace']
 \}
