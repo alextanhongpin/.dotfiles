@@ -34,7 +34,8 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'universal-ctags/ctags'
 Plug 'preservim/tagbar'
 Plug 'dracula/vim'
-Plug 'github/copilot.vim'
+"Plug 'github/copilot.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
@@ -118,11 +119,11 @@ let g:lightline = {
 let g:ale_linter_aliases = {'svelte': ['css', 'javascript']}
 let g:ale_linters = {
 \   'rust': ['cargo'],
-"\   'go': ['staticcheck'],
+\   'go': ['golangci-lint', 'gofmt', 'gopls', 'golint', 'govet'],
 \   'css': ['prettier'],
 \   'html': ['prettier'],
 \   'javascript': ['prettier', 'eslint'],
-\   'typescript': ['prettier'],
+\   'typescript': ['eslint', 'prettier'],
 \   'vue': ['prettier'],
 \   'typescriptreact': ['eslint', 'prettier'],
 \   'ruby': ['brakeman', 'standardrb', 'ruby', 'rails_best_practices', 'rubocop'],
@@ -131,12 +132,13 @@ let g:ale_linters = {
 \}
 let g:ale_fixers = {
 	\'ruby': ['sorbet', 'standardrb', 'rubocop'],
+	\'go': ['goimports', 'gofmt'],
 	\'rust': ['rustfmt'],
 	\'vue': ['prettier'],
 	\'html': ['prettier'],
 	\'css': ['prettier'],
 	\'javascript': ['prettier', 'eslint'],
-	\'typescript': ['prettier'],
+	\'typescript': ['prettier', 'eslint'],
 	\'typescriptreact': ['eslint', 'prettier'],
 	\'svelte': ['stylelint', 'eslint', 'prettier', 'prettier-standard'],
 	\'dart': ['dartfmt', 'dart-format'],
@@ -194,7 +196,8 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 "nnoremap <C-f> :Ag!<Enter>
 nnoremap <C-f> :Rg<space>
 " Find files with fzf
-nmap <leader>p :Files<CR>
+" Use GFiles instead of files to use .gitignore
+nmap <leader>p :GFiles<CR>
 nmap <leader>m :CtrlSF -R ""<Left>
 nmap <leader>n :CtrlSFFocus<CR>
 
@@ -310,8 +313,8 @@ autocmd vimenter * NERDTree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-map <C-n> :NERDTreeToggle<CR>
-map <C-m> :NERDTreeFind<CR>
+map <C-b> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeFind<CR>
 
 " Plugin alvan/vim-closetag
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.ts,*.jsx,*.tsx,*.js,*.vue,*.erb,*.svelte"
@@ -340,3 +343,42 @@ nmap <leader>e :ALENext<cr>
 
 "Toggle universal ctag display.
 nmap <leader>t :TagbarToggle<CR>
+
+"Go configuration
+"let g:go_metalinter_autosave = 1
+"let g:go_metalinter_command = 'golangci-lint'
+"
+let g:ale_go_golangci_lint_package = 1
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+-- install language parser
+-- :TSInstallInfo Command to view supported languages
+	ensure_installed = {"go", "js", "typescript", "tsx", "python"},
+	-- Enable code highlighting
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = true
+	},
+	-- Enable incremental selection
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+		init_selection = '<CR>',
+		node_incremental = '<CR>',
+		node_decremental = '<BS>',
+		scope_incremental = '<TAB>',
+	}
+},-- Enable based on Treesitter Code formatting for (=) . NOTE: This is an experimental feature.
+	indent = {
+		enable = true
+	}
+}
+
+-- Turn on Folding
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+-- Don't collapse by default
+-- https://stackoverflow.com/questions/8316139/how-to-set-the-default-to-unfolded-when-you-open-a-file
+vim.wo.foldlevel = 99
+EOF
