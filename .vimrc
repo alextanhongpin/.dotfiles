@@ -3,39 +3,40 @@ syntax off
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
+"Plug 'github/copilot.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'cormacrelf/vim-colors-github'
+Plug 'altercation/vim-colors-solarized'
 Plug 'alvan/vim-closetag', { 'for': ['javascript', 'svelte', 'typescript', 'typescriptreact', 'vue'] }
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'cohama/lexima.vim'
+Plug 'cormacrelf/vim-colors-github'
+Plug 'dense-analysis/ale'
+Plug 'dracula/vim'
+Plug 'dyng/ctrlsf.vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'ervandew/supertab'
-Plug 'preservim/nerdtree'
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries', 'for': 'go'}
+Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'scss'] }
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/goyo.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install', 'for':['javascript', 'typescript', 'typescriptreact']}
+Plug 'ludovicchabant/vim-gutentags', { 'for': ['javascript', 'typescript', 'typescriptreact'] }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'preservim/tagbar'
 Plug 'scrooloose/nerdcommenter'
+Plug 'sheerun/vim-polyglot'
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'dense-analysis/ale'
-Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'scss'] }
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'ludovicchabant/vim-gutentags', { 'for': ['javascript', 'typescript', 'typescriptreact'] }
-Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install', 'for':['javascript', 'typescript', 'typescriptreact']}
-Plug 'sheerun/vim-polyglot'
-Plug 'altercation/vim-colors-solarized'
-Plug 'vimwiki/vimwiki'
-Plug 'dyng/ctrlsf.vim'
+Plug 'tpope/vim-dadbod'
 Plug 'universal-ctags/ctags'
-Plug 'preservim/tagbar'
-Plug 'dracula/vim'
-"Plug 'github/copilot.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -119,6 +120,7 @@ let g:lightline = {
 let g:ale_linter_aliases = {'svelte': ['css', 'javascript']}
 let g:ale_linters = {
 \   'rust': ['cargo'],
+\   'php': ['phpstan'],
 \   'go': ['golangci-lint', 'gofmt', 'gopls', 'golint', 'govet'],
 \   'css': ['prettier'],
 \   'html': ['prettier'],
@@ -142,7 +144,7 @@ let g:ale_fixers = {
 	\'typescriptreact': ['eslint', 'prettier'],
 	\'svelte': ['stylelint', 'eslint', 'prettier', 'prettier-standard'],
 	\'dart': ['dartfmt', 'dart-format'],
-	"\   'python': ['black'],
+	\'python': ['black'],
 	\'*': ['remove_trailing_lines', 'trim_whitespace']
 \}
 let g:ale_lint_on_text_changed = 'never'
@@ -330,6 +332,7 @@ set wildignore+=*dist/**
 set wildignore+=*build/**
 
 au BufRead /tmp/psql.edit.* set syntax=sql
+au BufRead,BufNewFile *.njk set filetype=html
 
 "Configure vimwiki to use Markdown
 let g:vimwiki_list = [{'path': '~/vimwiki/',
@@ -349,6 +352,12 @@ nmap <leader>t :TagbarToggle<CR>
 "let g:go_metalinter_command = 'golangci-lint'
 "
 let g:ale_go_golangci_lint_package = 1
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
@@ -379,3 +388,10 @@ EOF
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+
+
+" 'tpope/vim-dadbod' settings.
+let g:dev = 'postgres://john:123456@127.0.0.1:5432'
+
+" Allows selecting under cursor and executing query.
+vnoremap <leader>t :%DB g:dev <CR>
