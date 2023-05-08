@@ -21,7 +21,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install', 'for':['javascript', 'typescript', 'typescriptreact']}
-Plug 'ludovicchabant/vim-gutentags', { 'for': ['javascript', 'typescript', 'typescriptreact'] }
+Plug 'ludovicchabant/vim-gutentags', { 'for': ['go', 'javascript', 'typescript', 'typescriptreact'] }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -34,9 +34,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dadbod'
-Plug 'universal-ctags/ctags'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
+Plug 'https://gitlab.com/__tpb/monokai-pro.nvim'
 
 call plug#end()
 
@@ -78,7 +78,7 @@ set splitright
 "" more blocky diff markers in signcolumn (e.g. GitGutter)
 "let g:github_colors_block_diffmark = 0
 "" in your .vimrc or init.vim
-colorscheme dracula
+colorscheme monokaipro
 
 " if you use airline / lightline
 "set background=light
@@ -88,9 +88,9 @@ colorscheme dracula
 	"\ }
 
 set background=dark
-let g:airline_theme = 'dracula'
+let g:airline_theme = 'monokaipro'
 let g:lightline = {
-	\ 'colorscheme': 'dracula',
+	\ 'colorscheme': 'monokaipro',
 	\ }
 
 "set background=dark
@@ -144,7 +144,7 @@ let g:ale_fixers = {
 	\'typescriptreact': ['eslint', 'prettier'],
 	\'svelte': ['stylelint', 'eslint', 'prettier', 'prettier-standard'],
 	\'dart': ['dartfmt', 'dart-format'],
-	\'python': ['black'],
+	\'python': ['black', 'autopep8'],
 	\'*': ['remove_trailing_lines', 'trim_whitespace']
 \}
 let g:ale_lint_on_text_changed = 'never'
